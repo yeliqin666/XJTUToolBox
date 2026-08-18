@@ -198,6 +198,83 @@ class HomeFrame(QWidget):
                 'content': self.tr("查看作业、课件与课程回放"),
                 'callback': lambda: self.main_window.switchTo(self.main_window.lms_interface),
                 'color': LinkCard.LinkCardColor.SKY_BLUE
+            },
+            "campus_card": {
+                'icon': FIF.FOLDER.icon(theme=Theme.DARK),
+                'title': self.tr("校园卡"),
+                'content': self.tr("查询余额与消费流水"),
+                'callback': lambda: self.main_window.switchTo(self.main_window.campus_card_interface),
+                'color': LinkCard.LinkCardColor.GREEN
+            },
+            "profile": {
+                'icon': FIF.INFO.icon(theme=Theme.DARK),
+                'title': self.tr("学籍档案"),
+                'content': self.tr("证件照、书院与辅导员"),
+                'callback': lambda: self.main_window.switchTo(self.main_window.profile_interface),
+                'color': LinkCard.LinkCardColor.BLUE
+            },
+            "library": {
+                'icon': FIF.DOCUMENT.icon(theme=Theme.DARK),
+                'title': self.tr("图书馆"),
+                'content': self.tr("空座、预约、换座与签到"),
+                'callback': lambda: self.main_window.switchTo(self.main_window.library_interface),
+                'color': LinkCard.LinkCardColor.PURPLE
+            },
+            "transcript": {
+                'icon': FIF.CERTIFICATE.icon(theme=Theme.DARK),
+                'title': self.tr("电子成绩单"),
+                'content': self.tr("生成盖章 PDF 成绩单"),
+                'callback': lambda: self.main_window.switchTo(self.main_window.transcript_interface),
+                'color': LinkCard.LinkCardColor.YELLOW
+            },
+            "textbook": {
+                'icon': FIF.BOOK_SHELF.icon(theme=Theme.DARK),
+                'title': self.tr("教材全文"),
+                'content': self.tr("检索教材并阅读全文"),
+                'callback': lambda: self.main_window.switchTo(self.main_window.textbook_interface),
+                'color': LinkCard.LinkCardColor.ORANGE
+            },
+            "fitness": {
+                'icon': FIF.SPEED_HIGH.icon(theme=Theme.DARK),
+                'title': self.tr("体测查询"),
+                'content': self.tr("查询体测项目分与总评"),
+                'callback': lambda: self.main_window.switchTo(self.main_window.fitness_interface),
+                'color': LinkCard.LinkCardColor.RED
+            },
+            "faculty": {
+                'icon': FIF.EDUCATION.icon(theme=Theme.DARK),
+                'title': self.tr("教师主页"),
+                'content': self.tr("检索教师主页"),
+                'callback': lambda: self.main_window.switchTo(self.main_window.faculty_interface),
+                'color': LinkCard.LinkCardColor.SKY_BLUE
+            },
+            "school_calendar": {
+                'icon': FIF.DATE_TIME.icon(theme=Theme.DARK),
+                'title': self.tr("校历"),
+                'content': self.tr("学期起止与节假日"),
+                'callback': lambda: self.main_window.switchTo(self.main_window.school_calendar_interface),
+                'color': LinkCard.LinkCardColor.GREEN
+            },
+            "school_course": {
+                'icon': FIF.VIEW.icon(theme=Theme.DARK),
+                'title': self.tr("全校课程"),
+                'content': self.tr("检索全校开课信息"),
+                'callback': lambda: self.main_window.switchTo(self.main_window.school_course_interface),
+                'color': LinkCard.LinkCardColor.BLUE
+            },
+            "jiaoxiaozhi": {
+                'icon': FIF.FEEDBACK.icon(theme=Theme.DARK),
+                'title': self.tr("交晓智"),
+                'content': self.tr("打开学校官方校园问答"),
+                'callback': lambda: self.main_window.switchTo(self.main_window.jiaoxiaozhi_interface),
+                'color': LinkCard.LinkCardColor.PURPLE
+            },
+            "venue": {
+                'icon': FIF.BASKETBALL.icon(theme=Theme.DARK),
+                'title': self.tr("体育场馆"),
+                'content': self.tr("查询空场并预约场馆"),
+                'callback': lambda: self.main_window.switchTo(self.main_window.venue_interface),
+                'color': LinkCard.LinkCardColor.ORANGE
             }
         }
 

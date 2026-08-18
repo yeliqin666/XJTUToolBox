@@ -32,6 +32,22 @@ from .sessions.gste_session import GSTESession
 from .sessions.jwapp_session import JwappSession
 from .sessions.lms_session import LMSSession
 from .sessions.venue_session import VenueSession
+from .sessions.campus_card_session import CampusCardSession
+from .sessions.hello_session import HelloSession
+from .sessions.library_session import LibrarySession
+from .sessions.dzpz_session import DzpzSession
+from .sessions.jiaocai_session import JiaocaiSession
+from .sessions.fitness_session import FitnessSession
+from .CampusCardInterface import CampusCardInterface
+from .ProfileInterface import ProfileInterface
+from .LibraryInterface import LibraryInterface
+from .TranscriptInterface import TranscriptInterface
+from .TextbookInterface import TextbookInterface
+from .FitnessInterface import FitnessInterface
+from .FacultyInterface import FacultyInterface
+from .SchoolCalendarInterface import SchoolCalendarInterface
+from .SchoolCourseInterface import SchoolCourseInterface
+from .JiaoxiaozhiInterface import JiaoxiaozhiInterface
 from .sub_interfaces import LoginInterface
 from .sub_interfaces.QRCodeLoginDialog import QRCodeLoginDialog
 from .sub_interfaces.VerifyCodeDialog import VerifyCodeDialog
@@ -62,6 +78,12 @@ def registerSession():
     SessionManager.global_register(GSTESession, "gste")
     SessionManager.global_register(LMSSession, "lms")
     SessionManager.global_register(VenueSession, "venue")
+    SessionManager.global_register(CampusCardSession, "campus_card")
+    SessionManager.global_register(HelloSession, "hello")
+    SessionManager.global_register(LibrarySession, "library")
+    SessionManager.global_register(DzpzSession, "dzpz")
+    SessionManager.global_register(JiaocaiSession, "jiaocai")
+    SessionManager.global_register(FitnessSession, "fitness")
 
 
 class MacReopenFilter(QObject):
@@ -202,6 +224,17 @@ class MainWindow(MSFluentWindow):
         QApplication.processEvents()
         self.venue_interface = VenueInterface(self)
         QApplication.processEvents()
+        self.campus_card_interface = CampusCardInterface(self)
+        self.profile_interface = ProfileInterface(self)
+        self.library_interface = LibraryInterface(self)
+        self.transcript_interface = TranscriptInterface(self)
+        self.textbook_interface = TextbookInterface(self)
+        self.fitness_interface = FitnessInterface(self)
+        self.faculty_interface = FacultyInterface(self)
+        self.school_calendar_interface = SchoolCalendarInterface(self)
+        self.school_course_interface = SchoolCourseInterface(self)
+        self.jiaoxiaozhi_interface = JiaoxiaozhiInterface(self)
+        QApplication.processEvents()
 
         self.tray_interface = TrayInterface(QIcon("assets/icons/main_icon.ico"))
         self.tray_interface.main_interface.connect(lambda: self.show())
@@ -325,7 +358,8 @@ class MainWindow(MSFluentWindow):
         self.addSubInterface(self.attendance_interface, MyFluentIcon.ATTENDANCE, self.tr("考勤"))
         self.addSubInterface(self.score_interface, FIF.EDUCATION, self.tr("成绩"))
         self.addSubInterface(self.lms_interface, FIF.DOCUMENT, self.tr("思源学堂"))
-        self.addSubInterface(self.venue_interface, FIF.BASKETBALL, self.tr("体育场馆"))
+        self.addSubInterface(self.campus_card_interface, FIF.FOLDER, self.tr("校园卡"))
+        self.addSubInterface(self.library_interface, FIF.BOOK_SHELF, self.tr("图书馆"))
         self.addSubInterface(self.tool_box_interface, FIF.APPLICATION, self.tr("工具"))
 
         self.navigationInterface.addWidget("GitHub",
@@ -363,6 +397,25 @@ class MainWindow(MSFluentWindow):
         empty_room_card = self.tool_box_interface.addCard(self.empty_room_interface, FIF.LAYOUT, self.tr("空闲教室"),
                                                           self.tr("查询当前空闲的教室"))
         empty_room_card.setFixedSize(200, 180)
+
+        venue_card = self.tool_box_interface.addCard(
+            self.venue_interface, FIF.BASKETBALL, self.tr("体育场馆"),
+            self.tr("查询空场并预约场馆"),
+        )
+        venue_card.setFixedSize(200, 180)
+
+        for interface, icon, title, content in (
+            (self.profile_interface, FIF.INFO, self.tr("学籍档案"), self.tr("证件照、书院与辅导员")),
+            (self.transcript_interface, FIF.CERTIFICATE, self.tr("电子成绩单"), self.tr("生成盖章 PDF 成绩单")),
+            (self.textbook_interface, FIF.BOOK_SHELF, self.tr("教材全文"), self.tr("检索教材并阅读全文")),
+            (self.fitness_interface, FIF.SPEED_HIGH, self.tr("体测查询"), self.tr("查询体测项目分与总评")),
+            (self.faculty_interface, FIF.EDUCATION, self.tr("教师主页"), self.tr("检索教师主页")),
+            (self.school_calendar_interface, FIF.DATE_TIME, self.tr("校历"), self.tr("学期起止与节假日")),
+            (self.school_course_interface, FIF.VIEW, self.tr("全校课程"), self.tr("检索全校开课信息")),
+            (self.jiaoxiaozhi_interface, FIF.FEEDBACK, self.tr("交晓智"), self.tr("打开学校官方校园问答")),
+        ):
+            card = self.tool_box_interface.addCard(interface, icon, title, content)
+            card.setFixedSize(200, 180)
 
         # 添加登录界面作为子界面，但是将其隐藏
         button = self.addSubInterface(self.login_interface, FIF.SCROLL, self.tr("登录"),
